@@ -26,26 +26,14 @@
     // const obj = new Object()
 
     function Goods(name, price, count) {
-      this.name = name
-      this.price = price
-      this.count = count
-      this.sayhi = function () { }
+      this.name = name;
+      this.price = price;
+      this.count = count;
     }
-    const mi = new Goods('小米', 1999, 20)
-    console.log(mi)
-    const hw = new Goods('华为', 3999, 59)
-    console.log(hw)
-    console.log(mi === hw)
-    mi.name = 'vivo'
-    console.log(mi)
-    console.log(hw)
-    // const date = new Date('2022-4-8')
-    // console.log(date)
-
-    // 静态成员 
-    Goods.num = 10
-    console.log(Goods.num)
-    Goods.sayhi = function () { }
+    const p1 = new Goods('Mi', 1999, 20);
+    const p2 = new Goods('Mi', 1399, 58);
+    const p3 = new Goods('Mi', 1599, 33);
+    console.log(p2)
   </script>
 </body>
 

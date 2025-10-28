@@ -148,46 +148,39 @@
       },
     ]
 
-    // 1. 渲染函数  封装
-    function render(arr) {
-      // 声明空字符串
-      let str = ''
-      // 遍历数组 
-      arr.forEach(item => {
-        // 解构
-        const { name, picture, price } = item
-        str += `
-         <div class="item">
-          <img src=${picture} alt="">
-          <p class="name">${name}</p>
-          <p class="price">${price}</p>
-        </div> 
-        `
-      })
-      // 追加给list 
-      document.querySelector('.list').innerHTML = str
-    }
-    render(goodsList)  // 页面一打开就需要渲染
 
-    // 2. 过滤筛选  
+    function render(arr) {
+      let str = '';
+      arr.forEach(item => {
+        const { name, price, picture } = item;
+
+        str += `
+        <div class="item">
+      <img src="${picture}" alt="">
+      <p class="name">${name}</p>
+      <p class="price">${price}</p>
+    </div>
+    
+        `
+        document.querySelector('.list').innerHTML = str;
+      });
+    }
+    render(goodsList);
+
     document.querySelector('.filter').addEventListener('click', e => {
-      // e.target.dataset.index   e.target.tagName
-      const { tagName, dataset } = e.target
-      // 判断 
+      const { tagName, dataset } = e.target;
+      let arr = goodsList;
       if (tagName === 'A') {
-        // console.log(11) 
-        // arr 返回的新数组
-        let arr = goodsList
         if (dataset.index === '1') {
-          arr = goodsList.filter(item => item.price > 0 && item.price <= 100)
+          arr = goodsList.filter(item => item.price >= 0 && item.price <= 100)
         } else if (dataset.index === '2') {
           arr = goodsList.filter(item => item.price >= 100 && item.price <= 300)
         } else if (dataset.index === '3') {
           arr = goodsList.filter(item => item.price >= 300)
         }
-        // 渲染函数
-        render(arr)
       }
+      render(arr);
+
     })
   </script>
 </body>
