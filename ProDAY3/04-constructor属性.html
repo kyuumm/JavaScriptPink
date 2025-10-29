@@ -23,7 +23,7 @@
     // console.log(Star.prototype)
     Star.prototype = {
       // 从新指回创造这个原型对象的 构造函数
-      constructor: Star,
+      constructor: Star,//这个写法好诡异
       sing: function () {
         console.log('唱歌')
       },
@@ -36,6 +36,8 @@
 
     // const ldh = new Star()
     // console.log(Star.prototype.constructor === Star)
+    //原型本质是一个对象，
+    //作用：共享方法，把不变的方法直接定义在prototype上，节省内存
   </script>
 </body>
 
