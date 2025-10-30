@@ -74,54 +74,71 @@
 
 
   <script>
-    // 1.  模态框的构造函数
+
     function Modal(title = '', message = '') {
-      // 公共的属性部分
-      this.title = title
-      this.message = message
-      // 因为盒子是公共的
-      // 1. 创建 一定不要忘了加 this 
-      this.modalBox = document.createElement('div')
-      // 2. 添加类名
-      this.modalBox.className = 'modal'
-      // 3. 填充内容 更换数据
+      this.modalBox = document.createElement('div');
+      this.modalBox.className = 'modal';
       this.modalBox.innerHTML = `
-        <div class="header">${this.title} <i>x</i></div>
-        <div class="body">${this.message}</div>
+          <div class="header">${title}<i>x</i></div>
+          <div class="body">${message}</div>
       `
-      // console.log(this.modalBox)
+      console.log(this.modalBox)
     }
-    // 2. 打开方法 挂载 到 模态框的构造函数原型身上
+
     Modal.prototype.open = function () {
-      if (!document.querySelector('.modal')) {
-        // 把刚才创建的盒子 modalBox  渲染到 页面中  父元素.appendChild(子元素)
-        document.body.appendChild(this.modalBox)
-        // 获取 x  调用关闭方法
-        this.modalBox.querySelector('i').addEventListener('click', () => {
-          // 箭头函数没有this 上一级作用域的this
-          // 这个this 指向 m 
-          this.close()
-        })
-      }
+      const box = document.querySelector('.modal');
+      box && box.remove();
+
+      document.body.append(this.modalBox);
+      this.modalBox.querySelector('i').addEventListener('click', () => {
+        this.close();
+        //使用箭头函数：这个函数内的函数没有this，只能使用上一级函数的this，此this指向实例对象
+        //eg: del.open()，，这个时候this指向del实例对象
+        //如果不使用箭头函数，this指向的是这个函数里触发事件的i
+      })
     }
-    // 3. 关闭方法 挂载 到 模态框的构造函数原型身上
+
     Modal.prototype.close = function () {
-      document.body.removeChild(this.modalBox)
+      this.modalBox.remove();
     }
-
-    // 4. 按钮点击
     document.querySelector('#delete').addEventListener('click', () => {
-      const m = new Modal('温馨提示', '您没有权限删除')
-      // 调用 打开方法
-      m.open()
+
+      const del = new Modal('1', 'test1');
+      del.open()
+
+    })
+    document.querySelector('#login').addEventListener('click', () => {
+
+      const del = new Modal('2', 'test2');
+      del.open()
     })
 
-    // 5. 按钮点击
-    document.querySelector('#login').addEventListener('click', () => {
-      const m = new Modal('友情提示', '您还么有注册账号')
-      // 调用 打开方法
-      m.open()
-    })
+    //有关this和箭头函数
+    //构造函数的this指向实例对象
+    //eg:function Modal(){}    const modal=new Modal
+    //this 指向modal
+
+    //原型方法的this
+    //Modal.prototype.open=function(){this....省略.....}
+    //谁调用open，this就指向谁
+
+    //   const obj = {
+    //   name: 'del',
+    //   show: function () {
+    //     console.log(this.name);
+    //   }
+    // }
+    // obj.show(); // 输出 del
+
+    //   const obj = {
+    //   name: 'del',
+    //   show: () => {
+    //     console.log(this.name);
+    //   }
+    // }
+    // obj.show();
+    // 结果为undefined，因为箭头函数的 this 是外层（全局）环境
+    // 这里箭头函数的 this 不是 obj，而是外层（浏览器中是 window）
 
   </script>
 </body>

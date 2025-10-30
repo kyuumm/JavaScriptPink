@@ -9,6 +9,9 @@
 </head>
 
 <body>
+
+  <img src="./prototype.jpg" alt="">
+
   <script>
     // function Objetc() {}
     console.log(Object.prototype)
@@ -25,6 +28,69 @@
     console.log(ldh instanceof Array)
     console.log([1, 2, 3] instanceof Array)
     console.log(Array instanceof Object)
+
+
+    //constructor prototype __proto__*******************************************************
+    //构造函数function Person(){} ，原型对象prototype，实例对象a=new Person，
+    //a.__proto__  ->  prototype
+    //a.constructor -> Person
+    //prototype.constructor ->Person
+
+
+
+
+    //Person.prototype.__proto__  -> Object.prototype
+    //这里的Object是系统的官方Object，Person从Object中创建了新的自定义对象
+
+    //Object.prototype.__proto__    ->   null
+    //原型链就是一个查找规则，先看当前实例有无查找的方法，
+    // 没有-》去原型对象找，没有——》Object的原型对象，没有——》Object原型对象的 __proto__
+
+    // Array.prototype.map
+    //创建一个arr数组类型，系统是这样做的：
+    //arr.__proto__=== Array.prototype
+    //Array.prototype.__proto__===Object.prototype
+
+    //原型链是这样的
+    //arr
+    //   ↓ __proto__
+    // Array.prototype
+    //   ↓ __proto__
+    // Object.prototype
+    //   ↓ __proto__
+    // null
+
+    //也就是说，对象之间是这样指向的，arr -> Array (系统方法) -> Object
+    //世界是一个巨大的对象
+
+    //解释Array.prototype.map : map是定义在Array.prototype上的方法
+
+
+    const divide = () => { "我分割一下" };
+
+    //修复构造函数****************************************************************************
+    //function A(){}  ;  function a(){}
+    //此时a的prototype的constructor指向a本身
+
+    //如果采用继承的方法（原型链）
+    //a.prototype=new Person
+    //a.prototype={ A拥有的功能变量 }
+    //同时a的prototype的constructor指向A，
+    //  修复：
+    //a.prototype.constructor=a;
+    //
+
+    divide();
+
+    //instanceof  语法 object instanceof constructor
+    //用于检测构造函数的prototype属性是否出现在某个实例对象的原型链上
+    //eg:  A创建了实例对象b，(b instanceof Object)是true，在Object的原型链上
+    // (b instanceof A)  true
+    //(b instanceof Array)  false
+
+
+
+
   </script>
 </body>
 
