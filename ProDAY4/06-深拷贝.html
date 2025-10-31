@@ -10,43 +10,7 @@
 
 <body>
   <script>
-    const obj = {
-      uname: 'pink',
-      age: 18,
-      hobby: ['乒乓球', '足球'],
-      family: {
-        baby: '小pink'
-      }
-    }
-    const o = {}
-    // 拷贝函数
-    function deepCopy(newObj, oldObj) {
-      debugger
-      for (let k in oldObj) {
-        // 处理数组的问题  一定先写数组 在写 对象 不能颠倒
-        if (oldObj[k] instanceof Array) {
-          newObj[k] = []
-          //  newObj[k] 接收 []  hobby
-          //  oldObj[k]   ['乒乓球', '足球']
-          deepCopy(newObj[k], oldObj[k])
-        } else if (oldObj[k] instanceof Object) {
-          newObj[k] = {}
-          deepCopy(newObj[k], oldObj[k])
-        }
-        else {
-          //  k  属性名 uname age    oldObj[k]  属性值  18
-          // newObj[k]  === o.uname  给新对象添加属性
-          newObj[k] = oldObj[k]
-        }
-      }
-    }
-    deepCopy(o, obj) // 函数调用  两个参数 o 新对象  obj 旧对象
-    console.log(o)
-    o.age = 20
-    o.hobby[0] = '篮球'
-    o.family.baby = '老pink'
-    console.log(obj)
-    console.log([1, 23] instanceof Object)
+
     // 复习
     // const obj = {
     //   uname: 'pink',
@@ -62,6 +26,62 @@
     //     // newObj.k  = 'pink'
     //   }
     // }
+  </script>
+
+  <script>
+    const obj = {
+      uname: 'aaa',
+      age: 0,
+      hobby: ['eat', 'sleep'],
+      family: {
+        like: 'draw'
+      }
+    }
+    const b = {};
+
+    function deepCopy(newB, oldB) {
+      for (let k in oldB) {
+
+        //如果传入的数据是属于数组类
+        if (oldB[k] instanceof Array) {
+          //给赋值的对象添加一个空的数组对象
+          newB[k] = [];
+          deepCopy(newB[k], oldB[k]);
+
+        } else if (oldB[k] instanceof Object) {
+
+          newB[k] = {};
+          deepCopy(newB[k], oldB[k]);
+          //注意，先写array，再写object，原因：array也算object的一种（原型那里讲的）
+          //也就是array instanceof Object ===true
+        }
+        else {
+
+          //k是属性名，oldB[k]是属性值，也就是值
+          newB[k] = oldB[k];
+          //等价于newB.uname=oldB.uname
+
+          //在数组遍历时，newB[k]就是数组array[0]这样
+          //obj={aaa:A,bbb:B}   array=[1,4,3]类似
+          //obj[aaa]===A        array[0]===1 类似
+          //也就是对象的属性名，类似于键，类似于数组下标
+          //对象的属性值，类似于值，类似于数组内容
+
+        }
+
+
+
+      }
+    }
+
+    deepCopy(b, obj);
+    console.log(obj);
+    console.log(b);
+
+    //面试回答：深拷贝需要用到函数递归
+    //普通拷贝直接赋值，遇到数组，再次调用，解决数组
+    //如果遇到对象，再次调用递归，最后解决对象
+
   </script>
 </body>
 
