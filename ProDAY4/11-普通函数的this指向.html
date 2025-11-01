@@ -29,6 +29,19 @@
       }
     }
     obj.sayHi()
+
+    document.querySelector('button').addEventListener('click', () => {
+      console.log(this)
+    })
+
+    function Person() { }
+    Person.prototype.walk = () => {
+      console.log(this);//指向window
+    }
+
+    //箭头函数，函数内不存在this，就沿用上一级的
+    // 严格模式指向undefined
+    //不适用：构造，原型，字面量，dom事件函数
   </script>
 </body>
 

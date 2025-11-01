@@ -8,23 +8,52 @@
   <title>Document</title>
 </head>
 
+
 <body>
+  <script>
+    // 学到的vscode快捷键：
+    //ctrl + shift + [    折叠代码
+    //ctrl + shift + ]    展开代码
+    //ctrl + p            文件列表里切换文件
+    //ctrl + w            关闭当前文件
+    //ctrl + p            同一文件框下切换文件
+    //ctrl + 1/2/3        不同文件分栏切换（和open with default browser冲突）
+    
+    //alt+l,alt+o         open with live server
+
+
+
+  </script>
+
   <!-- 先引用 -->
   <script src="./lodash.min.js"></script>
-  <script>
-    const obj = {
-      uname: 'pink',
-      age: 18,
-      hobby: ['乒乓球', '足球'],
-      family: {
-        baby: '小pink'
+<script>
+  // 深拷贝复习
+  function deepClone(newO,oldO){
+    for(let k in oldO){
+      if(oldO[k] instanceof Array){
+        newO[k]=[];
+        deepClone(newO[k],oldO[k]);
+      }else if(oldO[k] instanceof Object){
+        newO[k]={};
+        deepClone(newO[k],oldO[k]);
+      }else{
+        newO[k]=oldO[k];
       }
     }
-    const o = _.cloneDeep(obj)
-    console.log(o)
-    o.family.baby = '老pink'
-    console.log(obj)
-  </script>
+  }
+
+  const obj={
+    uname:'1',
+    age:'12',
+    group:{
+      a:'lodash'
+    }
+  }
+  // lodash   clone&cloneDeep
+ const o=_.cloneDeep(obj);
+ //语法    _.
+</script>
 </body>
 
 </html>

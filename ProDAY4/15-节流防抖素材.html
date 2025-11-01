@@ -20,48 +20,45 @@
 
 <body>
   <div class="box"></div>
+  <script src="./lodash.min.js"></script>
   <script>
     const box = document.querySelector('.box')
-    let i = 1  // 让这个变量++
-    // 鼠标移动函数
+
+    let i = 1;
     function mouseMove() {
-      box.innerHTML = ++i
-      // 如果里面存在大量操作 dom 的情况，可能会卡顿
+      box.innerHTML = i++;
     }
-    // console.log(mouseMove)
-    // 节流函数 throttle 
-    function throttle(fn, t) {
-      // 起始时间
-      let startTime = 0
+    // // _.debounce(fun,时间)
+    // box.addEventListener('mousemove', _.debounce(mouseMove, 500));
+
+    function debounce(fn, t) {
+      let timer;
+      //为什么是return？
+      //和底下的调用debounce一起看
+      //因为调用函数时候加了括号，会立即执行这个函数，并且留给事件监听的东西就是return的返回值
+      //也就是说addEventListener只认返回值
+      //在他眼里，每次mousemove执行的函数变成了下面这个匿名函数
       return function () {
-        // 得到当前的时间
-        let now = Date.now()
-        // 判断如果大于等于 500 采取调用函数
-        if (now - startTime >= t) {
-          // 调用函数
-          fn()
-          // 起始的时间 = 现在的时间   写在调用函数的下面 
-          startTime = now
+
+
+        if (timer) {
+          clearTimeout(timer);
         }
+        //  else {
+        //为什么不用写else？
+        //用了else相当于：没有定时器才设置新的，
+        // 但是第一次触发时定时器被清除，也不能设置新的定时器，结束了
+
+        timer = setTimeout(fn, t);
+
+
       }
     }
-    box.addEventListener('mousemove', throttle(mouseMove, 500))
+    box.addEventListener('mousemove', debounce(mouseMove, 500))
 
-    // throttle(mouseMove, 500) === function () { console.log(1) }
-
-
-    // box.addEventListener('mousemove', function () {
-    //   // 得到当前的时间
-    //   let now = Date.now()
-    //   // 判断如果大于等于 500 采取调用函数
-    //   if (now - startTime >= t) {
-    //     // 调用函数
-    //     fn()
-    //     // 起始的时间 = 现在的时间   写在调用函数的下面
-    //     startTime = now
-    //   }
-    // })
-
+    box.addEventListener('mousemove', function () {
+      console.log('1')
+    })
   </script>
 </body>
 

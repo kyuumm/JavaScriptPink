@@ -20,10 +20,9 @@
     }
     // 把对象转换为 JSON 字符串
     // console.log(JSON.stringify(obj))
-    const o = JSON.parse(JSON.stringify(obj))
-    console.log(o)
-    o.family.baby = '123'
-    console.log(obj)
+    JSON.stringify(obj)//没有任何引用问题，全都是普通文字
+    JSON.parse(JSON.stringify(obj));//再把JSON转换为正常的对象
+    //好深井高效的方法，其实就是照抄原对象新建另一个完全不同的对象
   </script>
 </body>
 

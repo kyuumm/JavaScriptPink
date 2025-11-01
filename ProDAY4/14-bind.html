@@ -24,6 +24,7 @@
     const fun = fn.bind(obj)
     // console.log(fun) 
     fun()
+    //有的函数只需要改变this指向，但是不要调用，可以使用bind
 
     // 需求，有一个按钮，点击里面就禁用，2秒钟之后开启
     document.querySelector('button').addEventListener('click', function () {
@@ -34,6 +35,9 @@
         this.disabled = false
       }.bind(this), 2000)   // 这里的this 和 btn 一样
     })
+    //call调用函数，传递参数
+    // apply和数组有关系
+    //bind用来改变this指向，不会立刻执行
   </script>
 </body>
 
