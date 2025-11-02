@@ -34,7 +34,36 @@
     // lodash 节流写法
     // box.addEventListener('mousemove', _.throttle(mouseMove, 500))
     // lodash 防抖的写法
-    box.addEventListener('mousemove', _.debounce(mouseMove, 500))
+    // box.addEventListener('mousemove', _.debounce(mouseMove, 500))
+
+    //节流：风再大，也要常出门看看 //高频事件，mouseMove ，resize页面缩放，滚动条滚动scroll
+    //防抖：等风停再出发          //搜索框搜索输入，手机号，邮箱验证输入检测
+    box.addEventListener('mousemove', throttle(mouseMove, 500))
+    function throttle(fn, t) {
+      let timer = null;
+      return function () {
+        if (timer) { }
+        else {
+          timer = setTimeout(function () {
+            fn();
+            //当执行完毕后，清空该定时器
+            // clearTimeout(timer);错误
+            //原因：在setTimeout中无法删除定时器，定时器还在运作
+            timer = null;
+          }, t);
+        }
+      }
+    }
+    function debounce(fn, t) {
+      let timer;
+      return function () {
+        if (timer) {
+          clearTimeout(timer)
+        } else {
+          timer = setTimeout(fn, t)
+        }
+      }
+    }
 
   </script>
 </body>

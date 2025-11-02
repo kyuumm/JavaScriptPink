@@ -64,6 +64,31 @@
     //声明一个定时器变量，每次事件触发，判断是否已经有定时器存在
     //如果有，清除之前的定时器
     //如果没有，开启定时器，同时存入变量，函数调用在定时器里实现
+
+    //debounce review
+    function debounce1(fn, t) {
+      let timer;
+      return function () {
+        if (timer) { clearTimeout(timer); }
+        timer = setTimeout(fn, t);
+      }
+    }
+    //deepClone review
+    function deepClone1(newOne, oldOne) {
+      for (let k in oldOne) {
+        if (oldOne[k] instanceof Array) {
+          newOne[k] = [];
+          deepClone1(newOne[k], oldOne[k]);
+        } else if (oldOne[k] instanceof Object) {
+          newOne[k] = {};
+          deepClone1(newOne[k], oldOne[k]);
+        } else {
+          newOne[k] = oldOne[k];
+        }
+      }
+    }
+    // lodash
+    newOne = _.cloneDeep(obj);
   </script>
 </body>
 

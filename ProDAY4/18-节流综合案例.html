@@ -72,18 +72,15 @@
   <script>
     // 1. 获取元素  要对视频进行操作
     const video = document.querySelector('video')
+
+    //ontimeupdate在视频/音频播放位置发生改变时候触发
+    //onloadeddata在当前帧数据加载完成，没有足够数据播放下一帧触发
     video.ontimeupdate = _.throttle(() => {
-      // console.log(video.currentTime) 获得当前的视频时间
-      // 把当前的时间存储到本地存储
       localStorage.setItem('currentTime', video.currentTime)
-    }, 1000)
-
-    // 打开页面触发事件，就从本地存储里面取出记录的时间， 赋值给  video.currentTime
+    }, 1000);
     video.onloadeddata = () => {
-      // console.log(111)
-      video.currentTime = localStorage.getItem('currentTime') || 0
+      video.currentTime = localStorage.getItem('currentTime') || 0;
     }
-
   </script>
 </body>
 
