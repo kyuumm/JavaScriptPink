@@ -59,9 +59,9 @@
       return function () {
         if (timer) {
           clearTimeout(timer)
-        } else {
-          timer = setTimeout(fn, t)
-        }
+        } 
+        timer = setTimeout(fn, t)
+        
       }
     }
 
