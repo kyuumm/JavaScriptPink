@@ -48,7 +48,31 @@
         pname: 省份或直辖市名字
         cname: 城市名字
     */
+    document.querySelector('.sel-btn').addEventListener('click', () => {
+      console.log('you clicked the btn');
+      const pName = document.querySelector('.province').value;
+      const cName = document.querySelector('.city').value;
 
+
+      axios({
+        url: 'http://hmajax.itheima.net/api/area',
+        params: {
+          pname: pName,
+          cname: cName
+        }
+      }).then(result => {
+        console.log(result.data.list);
+        console.log(result.data.list.join('<br>'));
+        let list = result.data.list;
+
+        const str = list.map(areaName => `<li class="list-group-item">${areaName}</li>`).join('');
+        //map复习：对数组里的每个数据处理，返回和原数组长度相同的数组
+        console.log(str)
+
+        document.querySelector('.list-group').innerHTML = str;
+      })
+
+    })
   </script>
 </body>
 

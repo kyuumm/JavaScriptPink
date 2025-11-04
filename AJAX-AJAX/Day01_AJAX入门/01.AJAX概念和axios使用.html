@@ -9,10 +9,22 @@
 </head>
 
 <body>
+    <p class="my-p"></p>
     <!-- 
         axios库地址: https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js
         省份数据地址: http://ajax-api.itheima.net/api/province
     -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        axios({
+            url: 'http://ajax-api.itheima.net/api/province'
+        }).then(result => {
+            console.log(result.data.data);
+            console.log(result.data.data.join('<br>'));
+
+            document.querySelector('.my-p').innerHTML = result.data.data.join('<br>');
+        })
+    </script>
 </body>
 
 </html>

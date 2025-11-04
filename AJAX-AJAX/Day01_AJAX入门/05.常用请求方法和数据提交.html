@@ -10,6 +10,7 @@
 
 <body>
   <button class="btn">注册用户</button>
+  <p></p>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     /*
@@ -21,6 +22,24 @@
 
       目标: 点击按钮, 通过axios提交用户和密码, 完成注册
     */
+    document.querySelector('.btn').addEventListener('click', () => {
+      axios({
+        url: 'http://hmajax.itheima.net/api/register',
+        // 指定请求方法，默认是get
+        method: 'POST',
+
+        //提交的数据
+        data: {
+          username: 'AAAAAAAAAA1',
+          password: '123456'
+        }
+        // params:查询的参数
+
+      }).then(result => {
+        console.log(result);
+        document.querySelector('p').innerHTML = result.data.message;
+      })
+    })
   </script>
 </body>
 
