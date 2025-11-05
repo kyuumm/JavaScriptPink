@@ -80,7 +80,34 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     // 目标1：点击登录时，用户名和密码长度判断，并提交数据和服务器通信
-    
+    document.querySelector('.btn-login').addEventListener('click', () => {
+      const username = document.querySelector('.username').value;
+      const password = document.querySelector('.password').value;
+
+      if (username.length < 8) {
+        console.log('username too short')
+        return;
+      }
+      if (password.length < 6) {
+        console.log('password too short')
+        return;
+      }
+
+      axios({
+        url: 'http://hmajax.itheima.net/api/login',
+        method: 'POST',
+        data: {
+          username,
+          password
+        }
+      }).then(result => {
+        console.log(result)
+        console.log(result.data.message)
+      }).catch(error => {
+        console.log(error);
+        console.log(error.response.data.message);
+      })
+    })
   </script>
 </body>
 

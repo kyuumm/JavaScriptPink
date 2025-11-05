@@ -10,18 +10,31 @@
 
 <body>
   <form action="javascript:;" class="example-form">
-    <input type="text" name="uname">
+    <input type="text" name="username">
     <br>
-    <input type="text" name="pwd">
+    <input type="text" name="password">
     <br>
     <input type="button" class="btn" value="提交">
   </form>
   <!-- 
     目标：在点击提交时，使用form-serialize插件，快速收集表单元素值
   -->
+  <script src="./lib/form-serialize.js"></script>
   <script>
     document.querySelector('.btn').addEventListener('click', () => {
-      
+      const form = document.querySelector('.example-form');
+      // serialize(form表单数据,配置对象)
+      // hash 设置获取数据结构
+      //  -true：JS对象，{username:xxx,password:xxxx}
+      //  -false:查询字符串，username=xxx&password=xxxx
+
+      // empty 设置是否获取空值
+      //  -true：能获取到空值
+      //  -false：不能获取空值
+
+      const data = serialize(form, { hash: false, empty: true })
+      console.log(data);
+      // 表单元素设置name属性，这个值会作为对象的属性名
     })
   </script>
 </body>
