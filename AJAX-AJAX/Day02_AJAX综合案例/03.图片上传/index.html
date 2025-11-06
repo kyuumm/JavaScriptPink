@@ -12,6 +12,7 @@
   <!-- 文件选择元素 -->
   <input type="file" class="upload">
 
+  <img src="" alt="" class="my-img">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     /**
@@ -20,7 +21,27 @@
      *  2. 使用 FormData 携带图片文件
      *  3. 提交到服务器，获取图片url网址使用
     */
-    
+    document.querySelector('.upload').addEventListener('change', e => {
+      //new FormData携带图片
+      const fd = new FormData();
+
+
+      // fd.append(参数名，值)
+      fd.append('img', e.target.files[0])
+      // fileList类似一个伪数组
+
+      axios({
+        url: 'http://hmajax.itheima.net/api/uploadimg',
+        method: 'POST',
+        data: fd
+
+      }).then(result => {
+        const imgUrl = result.data.data.url
+
+        document.querySelector('.my-img').src = imgUrl;
+
+      })
+    })
   </script>
 </body>
 
