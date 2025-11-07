@@ -4,3 +4,24 @@
  *  2. 上传成功时，"保存"图片url网址
  *  3. 网页运行后，"获取"url网址使用
  * */
+// label：扩大表单交互范围，更好更改样式
+document.querySelector('.bg-ipt').addEventListener('change', e => {
+  console.log(e.target.files[0]);
+  const fd = new FormData();
+  fd.append('img', e.target.files[0]);
+  axios({
+    url: 'http://hmajax.itheima.net/api/uploadimg',
+    method: 'POST',
+    data: fd
+  }).then(result => {
+    const imgUrl = result.data.data.url;
+
+    document.body.style.backgroundImage = `url(${imgUrl})`;
+
+    localStorage.setItem('bgImg', imgUrl);
+
+  })
+})
+
+const bgUrl = localStorage.getItem('bgImg')
+bgUrl && (document.body.style.backgroundImage = `url(${bgUrl})`);
