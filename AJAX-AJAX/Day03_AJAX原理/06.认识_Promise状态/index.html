@@ -13,12 +13,25 @@
     /**
      * 目标：认识Promise状态
     */
+    /*
+    Promise:
+    1 pending：初始状态
+    2 fulfilled 操作成功
+    3 rejected 操作失败
+    对象一旦被兑现/拒绝，就不能修改
+
+    状态有什么用？改变后，可以调用关联的处理函数
+    */
     // 1. 创建Promise对象
+
     const p = new Promise((resolve, reject) => {
       // 2. 执行异步代码
+      //这里的代码会执行
       setTimeout(() => {
         // resolve('模拟AJAX请求-成功结果')
+
         reject(new Error('模拟AJAX请求-失败结果'))
+
       }, 2000)
     })
     console.log(p)

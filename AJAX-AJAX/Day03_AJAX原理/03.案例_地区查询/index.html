@@ -45,6 +45,60 @@
     /**
      * 目标: 根据省份和城市名字, 查询对应的地区列表
     */
+    document.querySelector('.sel-btn').addEventListener('click', () => {
+      const pname = document.querySelector('.province').value;
+      const cname = document.querySelector('.city').value;
+
+      const qObj = {
+        pname: pname,
+        cname: cname
+      }
+
+      //URLSearchParams********************************************************
+      //对象-》字符串
+      const paramsObj = new URLSearchParams(qObj)//把对象转换成标准格式
+      const queryString = paramsObj.toString()//转换成网址的参数字符串
+
+      console.log(queryString)
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://hmajax.itheima.net/api/area?' + queryString);
+
+      xhr.addEventListener('loadend', () => {
+
+        const data = JSON.parse(xhr.response)
+        // const str = data.list.join('<br>')
+        const htmlStr = data.list.map(areaName => {
+          return `<li class="list-group-item">${areaName}</li>`
+        }).join('')
+        console.log(htmlStr)
+        document.querySelector('.list-group-item').innerHTML = htmlStr;
+        // const areaList = document.querySelector('.list-group-item').innerHTML = str;
+
+      })
+      xhr.send();
+
+      //axios对比:
+      /*      axios({
+            url: 'http://hmajax.itheima.net/api/area',
+            params: {
+              pname: pName,
+              cname: cName
+            }
+          }).then(result => {
+            console.log(result.data.list);
+            console.log(result.data.list.join('<br>'));
+            let list = result.data.list;
+    
+            const str = list.map(areaName => `<li class="list-group-item">${areaName}</li>`).join('');
+            //map复习：对数组里的每个数据处理，返回和原数组长度相同的数组
+            console.log(str)
+    
+            document.querySelector('.list-group').innerHTML = str;
+          })
+    
+      */
+    })
   </script>
 </body>
 

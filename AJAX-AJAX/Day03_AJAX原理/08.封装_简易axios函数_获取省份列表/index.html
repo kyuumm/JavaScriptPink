@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <p class="my">1</p>
   <script>
     /**
      * 目标：封装_简易axios函数_获取省份列表
@@ -17,6 +18,59 @@
      *  3. 调用成功/失败的处理程序
      *  4. 使用myAxios函数，获取省份列表展示
     */
+    //模拟axios
+    function myAxios(config) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(config.method || 'GET', config.url);
+        //逻辑中断判断方法
+
+        xhr.addEventListener('loadend', () => {
+
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(new Error(xhr.response))
+          }
+        })
+        xhr.send();
+      })
+
+    }
+
+    myAxios({
+      url: 'http://hmajax.itheima.net/api/province',
+      method: 'GET'
+    }).then(result => {
+      console.log(result);
+      console.log(result.list);
+      console.log(result.list.join('<br>'));
+
+      document.querySelector('.my').innerHTML = result.list.join('<br>');
+
+    }).catch(error => {
+      console.dir(error)
+
+      document.querySelector('.my').innerHTML = error.message;
+    })
+    // axios对比
+    //       axios({
+    //     url: 'http://hmajax.itheima.net/api/area',
+    //     params: {
+    //       pname: pName,
+    //       cname: cName
+    //     }
+    //   }).then(result => {
+    //     console.log(result.data.list);
+    //     console.log(result.data.list.join('<br>'));
+    //     let list = result.data.list;
+
+    //     const str = list.map(areaName => `<li class="list-group-item">${areaName}</li>`).join('');
+    //     console.log(str)
+    //     document.querySelector('.list-group').innerHTML = str;
+    //   })
+
+
   </script>
 </body>
 

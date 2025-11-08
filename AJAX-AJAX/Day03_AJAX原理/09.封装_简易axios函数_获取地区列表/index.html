@@ -17,9 +17,21 @@
      *  2. 使用URLSearchParams转换，并携带到url上
      *  3. 使用myAxios函数，获取地区列表
     */
+
     function myAxios(config) {
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest()
+
+        if (config.params) {
+          const paramsObj = new URLSearchParams(config.params)
+          //URLSearchParams() 接收一个“对象”，
+          // 然后把它变成一个“可操作的查询参数对象”。
+          const queryString = paramsObj.toString();
+          //.toString() 会自动把键值对转成标准的查询字符串格式
+
+          config.url += `?${queryString}`
+        }
+
         xhr.open(config.method || 'GET', config.url)
         xhr.addEventListener('loadend', () => {
           if (xhr.status >= 200 && xhr.status < 300) {
@@ -31,6 +43,20 @@
         xhr.send()
       })
     }
+
+    myAxios({
+      url: 'http://hmajax.itheima.net/api/area',
+      params: {
+        pname: '辽宁省',
+        cname: '大连市'
+      }
+    }).then(result => {
+      console.log(result);
+      document.querySelector('.my-p').innerHTML = result.list.join('<br>')
+
+    }).catch(result => {
+
+    })
 
   </script>
 </body>

@@ -48,15 +48,20 @@ document.querySelector('.upload').addEventListener('change', (e) => {
 document.querySelector('.submit').addEventListener('click', () => {
   const userForm = document.querySelector('.user-form');
   const userObj = serialize(userForm, { hash: true, empty: true })
+
   userObj.creator = creator;
 
-  userObj.gender += userObj.gender
+  userObj.gender = + userObj.gender
   //把性别字符串转换为数字
   axios({
     url: 'http://hmajax.itheima.net/api/settings',
     method: 'PUT',
     data: userObj
   }).then(result => {
-    console.log(result.data.data.message);
+    console.log(result.data.message);
+
+    const toastDom = document.querySelector('.my-toast')
+    const toast = new bootstrap.Toast(toastDom);
+    toast.show();
   })
 })
