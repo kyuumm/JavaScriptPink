@@ -9,6 +9,7 @@ document.querySelector('.search-city').addEventListener('input', e => {
   }
 })
 // 输入框失焦，隐藏搜索列表
+//在用户离开输入框时，隐藏下拉列表
 document.querySelector('.search-city').addEventListener('blur', e => {
   // 延迟消失，保证点击获取到城市code后，再隐藏下拉列表
   setTimeout(() => {
@@ -16,8 +17,10 @@ document.querySelector('.search-city').addEventListener('blur', e => {
   }, 500)
 })
 // 输入框聚焦，显示搜索列表
+//在用户离开输入框，又回来的时候显示下拉列表
 document.querySelector('.search-city').addEventListener('focus', e => {
   if (e.target.value.length > 0) {
     searchList.classList.add('show')
   }
 })
+

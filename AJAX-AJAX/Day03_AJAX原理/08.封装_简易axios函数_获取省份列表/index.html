@@ -20,9 +20,22 @@
     */
     //模拟axios
     function myAxios(config) {
+      /*
+为什么要 new Promise？
+
+因为 XMLHttpRequest 是异步的。
+
+当你调用 xhr.send() 发请求时，浏览器会在后台慢慢等服务器响应；
+
+函数本身不会停下来等，所以不能直接 return 结果；
+
+我们必须“等到结果回来”再告诉调用者；
+      */
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open(config.method || 'GET', config.url);
+        //告诉浏览器要向哪里、用什么方式发请求。
+        // open() 其实是“准备工作”。它不真正发请求，只是配置请求。
         //逻辑中断判断方法
 
         xhr.addEventListener('loadend', () => {
