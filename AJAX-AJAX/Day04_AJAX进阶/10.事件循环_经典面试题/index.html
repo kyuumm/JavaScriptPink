@@ -11,23 +11,90 @@
 <body>
   <script>
     // 目标：回答代码执行顺序
+    //1 ，7，5，6 ，2，3，4，正确
+
     console.log(1)
+
+    //宏任务，跳过
     setTimeout(() => {
       console.log(2)
       const p = new Promise(resolve => resolve(3))
       p.then(result => console.log(result))
     }, 0)
+
     const p = new Promise(resolve => {
       setTimeout(() => {
         console.log(4)
       }, 0)
       resolve(5)
     })
+
     p.then(result => console.log(result))
+
     const p2 = new Promise(resolve => resolve(6))
+
     p2.then(result => console.log(result))
+
     console.log(7)
   </script>
+  <!-- 
+  <script>
+    console.log(1)
+
+    //宏任务，跳过
+    setTimeout(() => {
+      console.log(2)
+      const p = new Promise(resolve => resolve(3))
+      p.then(result => console.log(result))
+    }, 0)
+
+    //本身同步，进入
+    const p = new Promise(resolve => {
+    //回调setTimeout，浏览器-宏任务
+      setTimeout(() => {
+        console.log(4)
+      }, 0)
+      //标记成功，无输出
+      resolve(5)
+    })
+
+    //上面标记成功，推入微任务
+    p.then(result => console.log(result))
+
+    //标记成功
+    const p2 = new Promise(resolve => resolve(6))
+
+    //标记成功，推入微任务
+    p2.then(result => console.log(result))
+
+    //输出7
+    console.log(7)
+
+    进入微任务：
+        p.then(result => console.log(result))
+        //5
+
+        p2.then(result => console.log(result))
+        //6
+
+    进入宏任务：
+          console.log(2)
+          //2
+
+          const p = new Promise(resolve => resolve(3))
+          //推入微任务
+          p.then(result => console.log(result))
+          
+    进入微任务
+      //3
+
+    进入宏任务：
+            setTimeout(() => {
+               console.log(4)
+            }, 0)
+            //4
+
+  </script> -->
 
 </body>
 

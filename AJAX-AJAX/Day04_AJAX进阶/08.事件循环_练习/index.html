@@ -14,12 +14,12 @@
      * 目标：阅读并回答执行的顺序结果
     */
     console.log(1)
+
     setTimeout(() => {
       console.log(2)
     }, 0)
-    function myFn() {
-      console.log(3)
-    }
+
+    //只是定义   
     function ajaxFn() {
       const xhr = new XMLHttpRequest()
       xhr.open('GET', 'http://hmajax.itheima.net/api/province')
@@ -28,14 +28,29 @@
       })
       xhr.send()
     }
+
+    //同步
     for (let i = 0; i < 1; i++) {
       console.log(5)
     }
+
+    //调用栈找函数
+    //进入ajaxFn，加载loadend是异步的，委托给宿主环境，
     ajaxFn()
+
+
     document.addEventListener('click', () => {
       console.log(6)
     })
+
+    //同步执行函数
     myFn()
+
+    //结束后从任务队列开始逐个执行
+    //任务队列：setTimeout -> axios loadend事件监听
+    function myFn() {
+      console.log(3)
+    }
   </script>
 </body>
 

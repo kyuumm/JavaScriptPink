@@ -28,7 +28,9 @@
     /**
      * 目标：async和await_错误捕获
     */
+
     async function getData() {
+      try {
         const pObj = await axios({ url: 'http://hmajax.itheima.net/api/province' })
         const pname = pObj.data.list[0]
         const cObj = await axios({ url: 'http://hmajax.itheima.net/api/city', params: { pname } })
@@ -39,6 +41,11 @@
         document.querySelector('.province').innerHTML = pname
         document.querySelector('.city').innerHTML = cname
         document.querySelector('.area').innerHTML = areaName
+      } catch (error) {
+        // try内的某行代码报错，其余代码不会执行
+        console.log(error.response.data);
+      }
+
     }
 
     getData()

@@ -29,6 +29,15 @@
      * 目标：把回调函数嵌套代码，改成Promise链式调用结构
      * 需求：获取默认第一个省，第一个市，第一个地区并展示在下拉菜单中
     */
+
+    //核心：then的方法会在原地返回新的promise对象
+    /*
+      第一个 .then() 拿到省份后，return 一个新的 Promise（axios 的返回值）。
+
+      第二个 .then() 会自动等待上一步返回的 Promise（也就是“城市请求”）完成。
+
+      当城市请求完成后，再触发第三个 .then() 去拿地区。
+  */
     let pname = ''
     axios({ url: 'http://hmajax.itheima.net/api/province' }).then(result => {
       pname = result.data.list[0]

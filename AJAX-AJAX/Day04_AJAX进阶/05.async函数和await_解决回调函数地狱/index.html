@@ -30,6 +30,27 @@
      * 概念：在async函数内，使用await关键字，获取Promise对象"成功状态"结果值
      * 注意：await必须用在async修饰的函数内（await会阻止"异步函数内"代码继续执行，原地等待结果）
     */
+    //async   await 用简洁的方法写出Promise的异步行为
+    //async, await代替then
+    async function getData(params) {
+      //await返回的是Promise resolve之后的值
+      const pObj = await axios({ url: 'http://hmajax.itheima.net/api/province' })
+      const pname = pObj.data.list[0]
+
+      const cObj = await axios({ url: 'http://hmajax.itheima.net/api/city', params: { pname } })
+      const cname = cObj.data.list[0]
+
+      const aObj = await axios({ url: 'http://hmajax.itheima.net/api/area', params: { pname, cname } })
+      const aname = cObj.data.list[0]
+
+
+
+      document.querySelector('.province').innerHTML = pname
+      document.querySelector('.city').innerHTML = cname
+      document.querySelector('.area').innerHTML = aname
+    }
+
+    getData();
   </script>
 </body>
 
