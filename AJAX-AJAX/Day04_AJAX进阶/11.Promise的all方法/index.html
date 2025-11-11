@@ -22,6 +22,65 @@
      * 广州-440100
      * 深圳-440300
     */
+    //作用：多个promise对象合成一个新的大promise
+    //所有promise成功，大promise进入then回调，任意一个失败，进入catch
+
+    //语法
+    // const p=Promise.all([promise1,promise2,···])
+    // p.then``` .catch
+
+    // const bjPromise = axios({ url: 'http://hmajax.itheima.net/api/weather', params: { city: '110101' } })
+    // const shPromise = axios({ url: 'http://hmajax.itheima.net/api/weather', params: { city: '310100' } })
+    // const gzPromise = axios({ url: 'http://hmajax.itheima.net/api/weather', params: { city: '440100' } })
+    // const szPromise = axios({ url: 'http://hmajax.itheima.net/api/weather', params: { city: '440300' } })
+
+
+    // const p = Promise.all([bjPromise, shPromise, gzPromise, szPromise])
+
+    // p.then(result => {
+    //   console.log(result);
+
+    //   const htmlStr = result.map(item => {
+    //     return `
+    //     <li>${item.data.data.area}---${item.data.data.weather}</li>
+    //     `
+    //   }).join('')
+    //   document.querySelector('.my-ul').innerHTML = htmlStr
+    //   //是同时出来的
+    // }).catch(error => {
+    //   console.log(error);
+
+    // })
+
+    //数组遍历写法
+    const cities = [
+      { code: '110101' },
+      { code: '310100' },
+      { code: '440100' }
+    ]
+
+    const promiseList = cities.map(item => {
+      return axios({
+        url: 'http://hmajax.itheima.net/api/weather',
+        params: { city: item.code }
+      })
+    })
+    const p1 = Promise.all(promiseList)
+
+    p1.then(result => {
+      console.log(result);
+
+      const htmlStr = result.map(item => {
+        return `
+        <li>${item.data.data.area}---${item.data.data.weather}</li>
+        `
+      }).join('')
+      document.querySelector('.my-ul').innerHTML = htmlStr
+      //是同时出来的
+    }).catch(error => {
+      console.log(error);
+
+    })
   </script>
 </body>
 
