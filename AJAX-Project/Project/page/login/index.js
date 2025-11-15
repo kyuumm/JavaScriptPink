@@ -25,6 +25,15 @@ document.querySelector('.btn-primary').addEventListener('click', (e) => {
 
     myAlert(true, '登录成功')
 
+
+    //保存token
+    localStorage.setItem('token', result.data.token)
+
+    //跳转页面(延迟版本)
+    setTimeout(() => {
+      location.href = '../content/index.html'
+
+    }, 1500)
   }).catch(error => {
     console.log(error);
 
@@ -33,4 +42,4 @@ document.querySelector('.btn-primary').addEventListener('click', (e) => {
   })
 })
 
-//11-14 明日两门考试，复习
+
