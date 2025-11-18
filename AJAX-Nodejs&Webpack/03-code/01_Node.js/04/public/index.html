@@ -12,10 +12,11 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-image: linear-gradient(to bottom right, red, gold);
+      background-image: linear-gradient(to bottom, rgb(14, 56, 245), rgb(255, 255, 255));
     }
 
     .box {
+      color: #ffffff;
       width: 400px;
       height: 250px;
       background-color: rgba(255, 255, 255, 0.6);
@@ -57,13 +58,11 @@
       let HH = dt.getHours();
       let mm = dt.getMinutes();
       let ss = dt.getSeconds();
-      console.log(dt, HH, mm, ss);
       document.querySelector('#HH').innerHTML = padZero(HH);
       document.querySelector('#mm').innerHTML = padZero(mm);
       document.querySelector('#ss').innerHTML = padZero(ss);
     };
     function padZero(n) {
-      console.log(n);
       return n > 9 ? n : '0' + n;
     }
   </script>
