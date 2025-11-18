@@ -156,16 +156,15 @@ document.querySelector('.art-list').addEventListener('click', async e => {
     queryObj.page--;
   }
   setArticleList()
+})
 
+document.querySelector('.art-list').addEventListener('click', async e => {
   if (e.target.classList.contains('edit')) {
-    const delId = e.target.parentNode.dataset.id
-    const res = await axios({
-      url: `v1_0/mp/articles/${delId}`,
-      method: 'DELETE'
-    })
-    setArticleList()
+    const editId = e.target.parentNode.dataset.id
+    location.href = `../publish/index.html?id=${editId}`
 
   }
+  // 回到发布文章的js
 })
 
 // 点击编辑时，获取文章 id，跳转到发布文章页面传递文章 id 过去
