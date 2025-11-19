@@ -6,3 +6,4 @@ const obj = require('./utils.js')
 console.log(obj);
 const result = obj.arraySum([1, 2, 3])
 console.log(result);
+//不知道为什么vscode提交不显示记录
