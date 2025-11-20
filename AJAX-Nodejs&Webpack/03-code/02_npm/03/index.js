@@ -15,17 +15,23 @@ console.log(getArraySum([1, 2, 3]));
 
 
 /* 
-commonJs:
+commonJs**********************
 module.exports={
 
 }
 const obj = require('./utils.js')
 
-ECMAScript:
+ECMAScript********************
 export default {
   
 }
+
 import obj from './utils.js'
+命名导入*****************************************
+export const baseURL = 'http://hmajax.itheima.net'
+export const getArraySum =  xxxxx
+
+import { baseURL, getArraySum } from './utils.js'
 */
 
 

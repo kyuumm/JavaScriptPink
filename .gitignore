@@ -1,0 +1,8 @@
+# 排除 node_modules（所有目录下的都生效）
+node_modules/
+
+# 可选：顺便排除 npm 安装依赖时生成的其他冗余文件
+package-lock.json
+yarn.lock
+.vscode/
+dist/

@@ -10,7 +10,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
-    "dayjs": "^1.11.7"
+    "dayjs": "^1.11.19"
   }
 }
