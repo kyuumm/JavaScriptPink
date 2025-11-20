@@ -1,10 +1,31 @@
 /**
  * 目标：基于 ECMAScript 标准语法，"命名"导入，工具属性和方法使用
  */
+
+/* 
+按需加载，用命名导出导入
+全部加载用默认导出导入
+
+*/
 // 命名导入
-import {baseURL, getArraySum} from './utils.js'
-console.log(obj)
-console.log(baseURL)
-console.log(getArraySum)
-const result = getArraySum([10, 21, 33])
-console.log(result)
+import { baseURL, getArraySum } from './utils.js'
+console.log(baseURL);
+console.log(getArraySum);
+console.log(getArraySum([1, 2, 3]));
+
+
+/* 
+commonJs:
+module.exports={
+
+}
+const obj = require('./utils.js')
+
+ECMAScript:
+export default {
+  
+}
+import obj from './utils.js'
+*/
+
+
