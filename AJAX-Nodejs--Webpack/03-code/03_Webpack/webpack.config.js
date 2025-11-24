@@ -5,14 +5,20 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   //有两种，development文件大，有注释，适合调试 ； production文件小，用来专门打包
   entry: './src/login/index.js',
+  devServer: {
+    static: './dist',
+  },
+  //以上配置告知 webpack-dev-server 将 dist 目录下的文件作为可访问资源部署在 localhost:8080。。
+
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './login/index.js',
+    filename: 'scripts/[name].js',
     clean: true//生成内容前清空输出目录
   },
+  //以output.path的值作为服务器根目录
   //插件，给webpack提供更多功能
   plugins: [
     new HtmlWebpackPlugin({
@@ -48,12 +54,20 @@ module.exports = {
           'less-loader',
         ],
       },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset',
+        generator: {
+          filename: 'assets/[hash][ext][query]'
+        }
+      }
 
     ]
 
   },
   //优化
   optimization: {
+    runtimeChunk: 'single',
     minimizer: [
       // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizer（即 `terser-webpack-plugin`），将下一行取消注释
       `...`,
