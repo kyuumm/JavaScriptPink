@@ -91,3 +91,25 @@ document.querySelector('.btn').addEventListener('click', () => {
 
 //webpack-dev-server借助http模块创建8080默认web服务
 //默认以public文件夹作为服务器
+
+//实现同一个代码作用不同环境（开发/生产）
+if (process.env.NODE_ENV === 'production') {
+  console.log = function () { };
+
+}
+console.log('development用，production下失效');
+
+//source map
+
+// consolee.warning('123')
+//console.warn('right')
+//会显示报错的具体位置
+
+//解析别名
+import youAxios from '@/utils/request.js'
+console.log(youAxios);
+
+//CDN：内容分发网络，一组分布在各个地区的服务器的集合
+//把静态资源文件/第三方库放在CDN 网络中各个服务器中，供用户就近请求获取
+//减轻服务器请求，物理延迟低
+//开发模式用本地第三方库，生产模式用CDN加载引入
