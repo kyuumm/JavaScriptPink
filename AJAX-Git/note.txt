@@ -40,3 +40,7 @@ HEAD影响暂存区和工作区代码
 1创建新分支   git branch 分支名 
 2切换分支命令 git checkout 分支名，让HEAD指向新分支
 3写代码
+**分支合并和删除
+1切回要合入的分支git checkout master
+2合并分支 git merge test
+3删除合并后的分支指针 git branch -d test
