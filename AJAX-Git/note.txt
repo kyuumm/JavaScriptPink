@@ -34,13 +34,28 @@ dist
 *.log
 
 分支：
-<<<<<<< HEAD
 默认是HEAD->master，是指针，
-=======
-默认是HEAD->master，是指针，指向提交记录
-HEAD影响暂存区和工作区代码
->>>>>>> test
 分支的作用：开发新需求/修复bug
 1创建新分支   git branch 分支名 
 2切换分支命令 git checkout 分支名，让HEAD指向新分支
 3写代码
+
+**分支合并和删除
+1切回要合入的分支git checkout master
+2合并分支 git merge test
+3删除合并后的分支指针 git branch -d test
+
+删除了test分支
+
+出现冲突：用git status查看
+保留其中一方：git add 文件名
+或者打开文件查看具体要保留的行
+
+合并与提交：
+master分支有新提交，分支也有新提交，也就是分叉点互相离开了
+git会自动使用多个快照记录合并后产生一次新的提交
+1切回要合入的分支git checkout master
+2合并分支 git merge test2
+3删除合并后的分支指针 git branch -d test2
+
+合并之后的顺序是按照提交的时间顺序
