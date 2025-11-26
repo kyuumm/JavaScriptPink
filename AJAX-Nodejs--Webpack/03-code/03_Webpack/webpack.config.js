@@ -9,7 +9,11 @@ const webpack = require('webpack')
 const config = {
   // mode: 'development',
   //有两种，development文件大，有注释，适合调试 ； production文件小，用来专门打包
-  entry: './src/login/index.js',
+  entry: {
+    'login': path.resolve(__dirname, 'src/login/index.js'),
+    'content': path.resolve(__dirname, 'src/content/index.js'),
+    'publish': path.resolve(__dirname, 'src/publish/index.js'),
+  },
   devServer: {
     static: './dist',
   },
@@ -17,20 +21,41 @@ const config = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'scripts/[name].js',
+    // filename: 'scripts/[name].js',
+    filename: './[name]/index.js',
+
+    //[name]模块名占位
+
     clean: true//生成内容前清空输出目录
   },
   //以output.path的值作为服务器根目录
   //插件，给webpack提供更多功能
   plugins: [
+
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/login.html'),//模板文件
       filename: path.resolve(__dirname, 'dist/login/index.html'),//输出文件
       useCdn: process.env.NODE_ENV === 'production',
       //生产模式，直接用cdn的bootstrap和axios
+      chunks: ['login']//引入哪些打包后的模块（和entry的key值一致）
     }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/content.html'),//模板文件
+      filename: path.resolve(__dirname, 'dist/content/index.html'),//输出文件
+      useCdn: process.env.NODE_ENV === 'production',
+      chunks: ['content']//引入哪些打包后的模块（和entry的key值一致）
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/publish.html'),//模板文件
+      filename: path.resolve(__dirname, 'dist/publish/index.html'),//输出文件
+      useCdn: process.env.NODE_ENV === 'production',
+      chunks: ['publish']//引入哪些打包后的模块（和entry的key值一致）
+    }),
+
+
     new MiniCssExtractPlugin({
-      filename: './login/index.css'
+      filename: './[name]/index.css'
     }),
     new webpack.DefinePlugin({
       // 打包之后，这个插件会自动替换值
@@ -86,6 +111,20 @@ const config = {
       `...`,
       new CssMinimizerPlugin(),
     ],
+    splitChunks: {
+      chunks: 'all', // 所有模块动态非动态移入的都分割分析
+      cacheGroups: { // 分隔组
+        commons: { // 抽取公共模块
+          minSize: 0, // 抽取的chunk最小大小字节
+          minChunks: 2, // 最小引用数
+          reuseExistingChunk: true, // 当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用
+          name(module, chunks, cacheGroupKey) { // 分离出模块文件名
+            const allChunksNames = chunks.map((item) => item.name).join('~') // 模块名1~模块名2
+            return `./js/${allChunksNames}` // 输出到 dist 目录下位置
+          }
+        }
+      }
+    }
   },
   //解析别名
   resolve: {
@@ -108,7 +147,10 @@ if (process.env.NODE_ENV === 'production') {
     // key:import from 语句后面的字符串
     // value:留在原地的全局变量(最好和 cdn 在全局暴露的变量一致)
     'bootstrap/dist/css/bootstrap.min.css': 'bootstrap',
-    'axios': 'axios'
+    'axios': 'axios',
+    'form-serialize': 'serialize',
+    '@wangeditor/editor': 'wangEditor'
+
   }
 }
 

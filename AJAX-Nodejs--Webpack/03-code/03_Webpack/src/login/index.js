@@ -79,6 +79,8 @@ document.querySelector('.btn').addEventListener('click', () => {
     }
   }).then(result => {
     myAlert(true, '登录成功')
+    localStorage.setItem('token', result.data.token)
+    location.href = '../content/index.html'
     console.log('提交到服务器');
 
   }).catch(error => {

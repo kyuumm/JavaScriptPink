@@ -1,0 +1,41 @@
+git ls-files//查看更改的文件
+
+git status -s//查看文件状态，
+两个字母显示，第一是暂存区状态，二是工作区状态
+U未跟踪，A暂存区新添加的文件，M被git追踪但是有改动的文件
+git restore //暂存区文件覆盖工作区
+
+git rm --cached 目标文件//暂存区移除文件
+
+git log --oneline//查看提交历史
+git log //两者区别：oneline只有一行，更简洁，下面的比较详细但是显示的信息少
+
+git reset --soft 版本号//旧版本有的文件覆盖，新版本添加的文件保留
+git reset --hard 版本号//完全覆盖工作区暂存区
+git reset --mixed 版本号 (==git reset)//覆盖暂存区，保留工作区
+git reflog 查看完整日志， 包括回退之后消失的log
+
+.gitignore忽略文件
+*************************
+# 忽略 npm 下载的第三方包
+node_modules 
+
+#忽略分发文件夹
+dist
+
+#忽略 vscode 配置文件
+.vscode广
+
+#忽略秘钥文件
+*.pem
+*.cer
+
+#忽略日志文件
+*.log
+
+分支：
+默认是HEAD->master，是指针，
+分支的作用：开发新需求/修复bug
+1创建新分支   git branch 分支名 
+2切换分支命令 git checkout 分支名，让HEAD指向新分支
+3写代码
