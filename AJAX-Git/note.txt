@@ -34,7 +34,12 @@ dist
 *.log
 
 分支：
+<<<<<<< HEAD
 默认是HEAD->master，是指针，
+=======
+默认是HEAD->master，是指针，指向提交记录
+HEAD影响暂存区和工作区代码
+>>>>>>> test
 分支的作用：开发新需求/修复bug
 1创建新分支   git branch 分支名 
 2切换分支命令 git checkout 分支名，让HEAD指向新分支
