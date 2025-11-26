@@ -59,3 +59,20 @@ git会自动使用多个快照记录合并后产生一次新的提交
 3删除合并后的分支指针 git branch -d test2
 
 合并之后的顺序是按照提交的时间顺序
+
+发生合并冲突，需要打开vscode手动处理代码，并重新add ，commit提交
+
+（提交记录太多可以按enter继续显示，也可以按q退出，clear是清屏）
+
+git -v查看git版本
+git init初始化仓库
+
+git status 查看文件状态（俩字母）详细版
+git status -s 查看文件状态简陋版
+git ls-files暂存区查看文件
+
+git log查看提交记录详尽版
+git log --oneline查看提交记录。简略版
+
+git checkout -b 创建并立刻切换分支
+git merge 分支名 //把分支提交历史记录合并到所在分支
