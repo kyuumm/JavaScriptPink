@@ -76,3 +76,14 @@ git log --oneline查看提交记录。简略版
 
 git checkout -b 创建并立刻切换分支
 git merge 分支名 //把分支提交历史记录合并到所在分支
+
+git remote add 远程仓库别名 仓库地址
+git push -u 远程仓库别名 本地&远程分支名
+
+git clone 远程仓库地址
+
+git pull 拉取仓库中的新代码，合并
+    git pull origin master
+
+合并冲突：
+git pull --rebase origin master
