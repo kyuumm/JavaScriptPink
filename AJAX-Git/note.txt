@@ -87,3 +87,5 @@ git pull 拉取仓库中的新代码，合并
 
 合并冲突：
 git pull --rebase origin master
+
+尝试github部署，页面需要在根目录，失败来着
