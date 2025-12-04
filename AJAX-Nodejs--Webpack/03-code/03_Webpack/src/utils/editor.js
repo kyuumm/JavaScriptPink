@@ -1,7 +1,7 @@
 // 富文本编辑器
 // 创建编辑器函数，创建工具栏函数
-const { createEditor, createToolbar } = window.wangEditor
 const wangEditor = require('@wangeditor/editor')
+const { createEditor, createToolbar } = wangEditor
 
 // 编辑器配置对象
 const editorConfig = {

@@ -1,4 +1,5 @@
 import axios from '@/utils/request.js'
+import '@/utils/auth.js'
 import './index.css'
 /**
  * 目标1：获取文章列表并展示
@@ -150,6 +151,6 @@ document.querySelector('.art-list').addEventListener('click', e => {
   if (e.target.classList.contains('edit')) {
     const artId = e.target.parentNode.dataset.id
     console.log(artId)
-    location.href = `../publish/index.html?id=${artId}`
+    location.href = `./publish.html?id=${artId}`
   }
 })

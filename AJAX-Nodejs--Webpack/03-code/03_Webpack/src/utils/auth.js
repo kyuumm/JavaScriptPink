@@ -11,7 +11,7 @@ import axios from '@/utils/request.js'
 // 1.1 判断无 token 令牌字符串，则强制跳转到登录页
 const token = localStorage.getItem('token')
 if (!token) {
-  location.href = '../login/index.html'
+  location.href = './login.html'
 }
 
 /**
@@ -36,5 +36,5 @@ axios({
 document.querySelector('.quit').addEventListener('click', e => {
   // 3.2 清空本地缓存，跳转到登录页面
   localStorage.clear()
-  location.href = '../login/index.html'
+  location.href = './login.html'
 })

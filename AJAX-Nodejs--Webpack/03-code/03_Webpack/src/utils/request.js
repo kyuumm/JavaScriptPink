@@ -28,7 +28,7 @@ axios.interceptors.response.use(function (response) {
   if (error?.response?.status === 401) {
     alert('身份验证失败，请重新登录')
     localStorage.clear()
-    location.href = '../login/index.html'
+    location.href = './login.html'
   }
   return Promise.reject(error);
 });

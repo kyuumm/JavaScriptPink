@@ -15,14 +15,15 @@ const config = {
     'publish': path.resolve(__dirname, 'src/publish/index.js'),
   },
   devServer: {
-    static: './dist',
+    static: path.resolve(__dirname, 'dist'),
+    open: ['./index.html'],      // ⭐ 启动时自动打开 login.html
   },
   //以上配置告知 webpack-dev-server 将 dist 目录下的文件作为可访问资源部署在 localhost:8080。。
 
   output: {
     path: path.resolve(__dirname, 'dist'),
     // filename: 'scripts/[name].js',
-    filename: './[name]/index.js',
+    filename: '[name].js',
 
     //[name]模块名占位
 
@@ -33,29 +34,37 @@ const config = {
   plugins: [
 
 
+    // ⭐ 新增：index.html，当成首页
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/login.html'), // 直接复用 login 页模板
+      filename: 'index.html',                                 // 输出到 dist/index.html
+      useCdn: process.env.NODE_ENV === 'production',
+      chunks: ['login']                                       // 注入 login 入口脚本
+    }),
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/login.html'),//模板文件
-      filename: path.resolve(__dirname, 'dist/login/index.html'),//输出文件
+      filename: 'login.html',//输出文件
       useCdn: process.env.NODE_ENV === 'production',
       //生产模式，直接用cdn的bootstrap和axios
       chunks: ['login']//引入哪些打包后的模块（和entry的key值一致）
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/content.html'),//模板文件
-      filename: path.resolve(__dirname, 'dist/content/index.html'),//输出文件
+      filename: 'content.html',//输出文件
       useCdn: process.env.NODE_ENV === 'production',
       chunks: ['content']//引入哪些打包后的模块（和entry的key值一致）
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/publish.html'),//模板文件
-      filename: path.resolve(__dirname, 'dist/publish/index.html'),//输出文件
+      filename: 'publish.html',//输出文件
       useCdn: process.env.NODE_ENV === 'production',
       chunks: ['publish']//引入哪些打包后的模块（和entry的key值一致）
     }),
 
 
     new MiniCssExtractPlugin({
-      filename: './[name]/index.css'
+      filename: '[name].css'
     }),
     new webpack.DefinePlugin({
       // 打包之后，这个插件会自动替换值

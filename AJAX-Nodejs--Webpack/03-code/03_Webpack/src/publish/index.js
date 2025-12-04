@@ -92,7 +92,7 @@ document.querySelector('.send').addEventListener('click', async e => {
     editor.setHtml('')
 
     setTimeout(() => {
-      location.href = '../content/index.html'
+      location.href = './content.html'
     }, 1500)
 
   } catch (error) {
@@ -179,6 +179,10 @@ document.querySelector('.send').addEventListener('click', async e => {
     })
     console.log(res)
     myAlert(true, '修改文章成功')
+      // 编辑成功后，跳转到内容列表页
+  setTimeout(() => {
+    location.href = './content.html'
+  }, 1500)
   } catch (error) {
     myAlert(false, error.response.data.message)
   }
